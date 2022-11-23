@@ -1,0 +1,30 @@
+prefix: '§8[§aEloSystem§8] §7'
+no_permission: '%prefix%§cDu hast für diesen Befehl keine Berechtigungen.'
+elo_information:
+  - '%prefix%Dein Elo&8: &a%elo%'
+  - '%prefix%Dein Rank&8: %rank%'
+elo_player_is_not_online: '%prefix%§cDieser Spieler ist nicht online!'
+elo_not_a_int: '%prefix%§cBitte gebe eine Zahl an.'
+elo_player_does_not_exists: '%prefix%§cDieser Spieler existiert nicht!'
+elo_edited: '%prefix%Du hast die Elo-Anzahl von &e%player%&7 auf &a%elo%&7 geändert.'
+
+elo_syntax:
+  - '§8§m-------]&r &2ELO &8&m[-------'
+  - '%prefix% /elo &8- &aZeigt dir deine jetztige Eloanzahl an.'
+  - '%prefix% /elo top &8- &aZeigt dir deine jetztige Eloanzahl an.'
+  - '%prefix% /elo add <spieler> <elo> &8- &aFüge Elo zu einem Spieler hinzu.'
+  - '%prefix% /elo remove <spieler> <elo> &8- &aEntferne das Elo von einem Spieler.'
+  - '§8§m-------]&r &2ELO &8&m[-------'
+
+elo_top:
+  - '§8§m-------]&r &2ELO &8&m[-------'
+  - '%prefix% &61. %player%'
+  - '%prefix% &72. %player%'
+  - '%prefix% &73. %player%'
+  - '%prefix% &74. %player%'
+  - '%prefix% &75. %player%'
+  - '%prefix% &76. %player%'
+  - '%prefix% &77. %player%'
+  - '%prefix% &78. %player%'
+  - '%prefix% &79. %player%'
+  - '%prefix% &710. %player%'

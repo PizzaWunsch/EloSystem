@@ -1,0 +1,4 @@
+name: EloSystem
+author: PizzaWunsch
+version: 1.0
+main: dev.pizzawunsch.elosystem.EloSystem

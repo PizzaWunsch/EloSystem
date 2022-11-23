@@ -1,0 +1,36 @@
+database:
+  host: 'localhost'
+  port: '3306'
+  database: 'elosystem'
+  username: 'root'
+  password: ''
+
+percentage:
+  victim: 10
+  attacker: 20
+
+ranks:
+  bronze1:
+    name: "&cBronze I"
+    requiredElo: 0
+    maxElo: 100
+  bronze2:
+    name: "&cBronze II"
+    requiredElo: 101
+    maxElo: 200
+  silver1:
+    name: "&7Silber I"
+    requiredElo: 201
+    maxElo: 1000
+  silver2:
+    name: "&7Silber II"
+    requiredElo: 1001
+    maxElo: 2000
+  silver3:
+    name: "&7Silber III"
+    requiredElo: 2001
+    maxElo: 3000
+  gold1:
+    name: "&6Gold I"
+    requiredElo: 3001
+    maxElo: 10000
