@@ -61,6 +61,7 @@ public class EloSystem extends JavaPlugin {
         this.register("dev.pizzawunsch.elosystem.commands", "dev.pizzawunsch.elosystem.listeners");
         // Reads the elo rank entire.
         this.mainConfiguration.read();
+        this.reconnect();
     }
 
     /**
