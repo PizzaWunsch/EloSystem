@@ -2,6 +2,7 @@ package dev.pizzawunsch.elosystem.listeners;
 
 import dev.pizzawunsch.elosystem.EloSystem;
 import dev.pizzawunsch.elosystem.utils.EloPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -33,13 +34,13 @@ public class PlayerDeathListener implements Listener {
                 // if the elo killer is not null.
                 if(eloKiller != null) {
                     // Adds the elo to the killer.
-                    int eloToAdd = eloPlayer.getElo() * (EloSystem.getInstance().getMainConfiguration().getConfig().getInt("percentage.attacker")/100);
-                    eloKiller.addElo(eloToAdd);
+                    double eloToAdd = eloPlayer.getElo() * (EloSystem.getInstance().getMainConfiguration().getConfig().getInt("percentage.attacker")/100d);
+                    eloKiller.addElo((int) Math.round(eloToAdd));
                 }
             }
             // Removes the elo from the player.
-            int eloToRemove = eloPlayer.getElo() * (EloSystem.getInstance().getMainConfiguration().getConfig().getInt("percentage.victim")/100);
-            eloPlayer.removeElo(eloToRemove);
+            double eloToRemove = eloPlayer.getElo() * (EloSystem.getInstance().getMainConfiguration().getConfig().getInt("percentage.victim")/100d);
+            eloPlayer.removeElo((int) Math.round(eloToRemove));
         }
 
     }
