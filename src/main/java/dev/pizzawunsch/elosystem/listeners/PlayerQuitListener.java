@@ -23,7 +23,7 @@ public class PlayerQuitListener implements Listener {
         // if the elo player is not null.
         if(eloPlayer != null) {
             EloSystem.getInstance().getEloDatabase().setElo(eloPlayer.getUniqueId(), player.getName(), eloPlayer.getElo());
+            EloSystem.getInstance().getEloPlayers().remove(eloPlayer);
         }
-        EloSystem.getInstance().getEloPlayers().remove(eloPlayer);
     }
 }

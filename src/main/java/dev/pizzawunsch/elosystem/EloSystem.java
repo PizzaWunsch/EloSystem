@@ -65,6 +65,21 @@ public class EloSystem extends JavaPlugin {
     }
 
     /**
+     * Saves all locally stored data into the database.
+     */
+    @Override
+    public void onDisable() {
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            EloPlayer eloPlayer = EloSystem.getEloAPI().getEloPlayer(player);
+            // if the elo player is not null.
+            if(eloPlayer != null) {
+                EloSystem.getInstance().getEloDatabase().setElo(eloPlayer.getUniqueId(), player.getName(), eloPlayer.getElo());
+                EloSystem.getInstance().getEloPlayers().remove(eloPlayer);
+            }
+        });
+    }
+
+    /**
      * This method will start a new task to reconnect the database in a given interval.
      */
     void reconnect() {
