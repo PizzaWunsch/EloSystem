@@ -113,10 +113,15 @@ public class EloCommand extends AbstractCommand {
                                 rank++;
                                 String name = "-";
                                 String uuid = EloSystem.getInstance().getEloDatabase().getRank(rank).get();
-                                if(!uuid.equals("-"))
+                                EloPlayer eloTarget = null;
+                                if(!uuid.equals("-")) {
                                     name = EloSystem.getInstance().getEloDatabase().getName(UUID.fromString(uuid)).get();
-                                if(name != null)
-                                    player.sendMessage(EloSystem.getInstance().translate(message).replace("%player%", name));
+                                    eloTarget = EloSystem.getEloAPI().getEloPlayer(UUID.fromString(uuid));
+                                }
+                                if(name != null) {
+                                    assert eloTarget != null;
+                                    player.sendMessage(EloSystem.getInstance().translate(message).replace("%player%", name).replace("%elo%", eloTarget.getElo() + "").replace("%rank%", EloSystem.getEloAPI().getEloRank(eloTarget.getElo()) + ""));
+                                }
                                 else
                                     player.sendMessage(EloSystem.getInstance().translate(message).replace("%player%", "-"));
                             } else
