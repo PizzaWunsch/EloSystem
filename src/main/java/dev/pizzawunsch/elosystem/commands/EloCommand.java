@@ -119,10 +119,13 @@ public class EloCommand extends AbstractCommand {
                                     eloTarget = EloSystem.getEloAPI().getEloPlayer(UUID.fromString(uuid));
                                 }
                                 if(name != null) {
-                                    assert eloTarget != null;
-                                    player.sendMessage(EloSystem.getInstance().translate(message).replace("%player%", name).replace("%elo%", eloTarget.getElo() + "").replace("%rank%", EloSystem.getEloAPI().getEloRank(eloTarget.getElo()) + ""));
-                                }
-                                else
+                                    if(eloTarget != null) {
+                                        player.sendMessage(EloSystem.getInstance().translate(message).replace("%player%", name).replace("%elo%", eloTarget.getElo() + "").replace("%rank%", EloSystem.getEloAPI().getEloRank(eloTarget.getElo()) + ""));
+                                    } else {
+                                        int elo = EloSystem.getInstance().getEloDatabase().getElo(UUID.fromString(uuid)).get();
+                                        player.sendMessage(EloSystem.getInstance().translate(message).replace("%player%", name).replace("%elo%", elo + "").replace("%rank%", EloSystem.getEloAPI().getEloRank(elo) + ""));
+                                    }
+                                } else
                                     player.sendMessage(EloSystem.getInstance().translate(message).replace("%player%", "-"));
                             } else
                                 player.sendMessage(EloSystem.getInstance().translate(message));
