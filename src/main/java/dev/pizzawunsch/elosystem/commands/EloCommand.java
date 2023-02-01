@@ -5,6 +5,7 @@ import dev.pizzawunsch.elosystem.EloSystem;
 import dev.pizzawunsch.elosystem.utils.AbstractCommand;
 import dev.pizzawunsch.elosystem.utils.EloPlayer;
 import dev.pizzawunsch.elosystem.utils.EloRank;
+import dev.pizzawunsch.elosystem.utils.UUIDFetcher;
 import lombok.SneakyThrows;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -39,7 +40,6 @@ public class EloCommand extends AbstractCommand {
             EloPlayer eloPlayer = EloSystem.getEloAPI().getEloPlayer(player);
             // if the elo player is not null.
             if(eloPlayer != null) {
-                // handles different argument lengths.
                 if(args.length == 0) {
                     EloRank eloRank = EloSystem.getEloAPI().getEloRank(eloPlayer.getElo());
                     Map<String, String> replacement = Maps.newHashMap();
@@ -119,19 +119,35 @@ public class EloCommand extends AbstractCommand {
                                     eloTarget = EloSystem.getEloAPI().getEloPlayer(UUID.fromString(uuid));
                                 }
                                 if(name != null) {
+                                    if(uuid.equals("-"))
+                                        continue;
+
                                     if(eloTarget != null) {
-                                        player.sendMessage(EloSystem.getInstance().translate(message).replace("%player%", name).replace("%elo%", eloTarget.getElo() + "").replace("%rank%", EloSystem.getEloAPI().getEloRank(eloTarget.getElo()) + ""));
+                                        player.sendMessage(EloSystem.getInstance().translate(message).replace("%player%", name).replace("%elo%", eloTarget.getElo() + "").replace("%rank%",  EloSystem.getInstance().translate(EloSystem.getEloAPI().getEloRank(eloTarget.getElo()).getName()) + ""));
                                     } else {
                                         int elo = EloSystem.getInstance().getEloDatabase().getElo(UUID.fromString(uuid)).get();
-                                        player.sendMessage(EloSystem.getInstance().translate(message).replace("%player%", name).replace("%elo%", elo + "").replace("%rank%", EloSystem.getEloAPI().getEloRank(elo) + ""));
+                                        player.sendMessage(EloSystem.getInstance().translate(message).replace("%player%", name).replace("%elo%", elo + "").replace("%rank%", EloSystem.getInstance().translate(EloSystem.getEloAPI().getEloRank(elo).getName()) + ""));
                                     }
                                 } else
                                     player.sendMessage(EloSystem.getInstance().translate(message).replace("%player%", "-"));
                             } else
                                 player.sendMessage(EloSystem.getInstance().translate(message));
                         }
-                    } else // Wrong syntax.
-                        EloSystem.getInstance().sendMessage(player, "elo_syntax");
+                    } else {
+                        String targetName = args[0];
+                        UUID uuid = UUIDFetcher.getUUID(targetName);
+                        // if the uuid is not null.
+                        if(uuid != null) {
+                            int elo = EloSystem.getInstance().getEloDatabase().getElo(uuid).get();
+                            EloRank eloRank = EloSystem.getEloAPI().getEloRank(elo);
+                            Map<String, String> replacement = Maps.newHashMap();
+                            replacement.put("%elo%", elo + "");
+                            replacement.put("%rank%", EloSystem.getInstance().translate(eloRank.getName()));
+                            replacement.put("%target%", targetName);
+                            EloSystem.getInstance().sendMessage(player, "elo_information_other", replacement);
+                        } else // Wrong syntax.
+                            EloSystem.getInstance().sendMessage(player, "elo_syntax");
+                    }
                 } else // Wrong syntax.
                     EloSystem.getInstance().sendMessage(player, "elo_syntax");
             }

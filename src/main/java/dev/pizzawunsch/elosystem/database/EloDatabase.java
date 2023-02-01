@@ -24,8 +24,8 @@ public class EloDatabase {
                         completableFuture.complete(result.getInt("elo"));
                     completableFuture.complete(-1);
                 } else {
-                    setElo(uuid, "-", 0);
-                    completableFuture.complete(0);
+                    setElo(uuid, "-", EloSystem.getInstance().getMainConfiguration().getConfig().getInt("default_elo"));
+                    completableFuture.complete(EloSystem.getInstance().getMainConfiguration().getConfig().getInt("default_elo"));
                 }
             } catch(Exception exception) {
                 completableFuture.complete(-1);
