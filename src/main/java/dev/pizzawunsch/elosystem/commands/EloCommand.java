@@ -119,8 +119,10 @@ public class EloCommand extends AbstractCommand {
                                     eloTarget = EloSystem.getEloAPI().getEloPlayer(UUID.fromString(uuid));
                                 }
                                 if(name != null) {
-                                    if(uuid.equals("-"))
+                                    if(uuid.equals("-")) {
+                                        player.sendMessage(EloSystem.getInstance().translate(message).replace("%player%", "-").replace("%elo%", "-").replace("%rank%", "-"));
                                         continue;
+                                    }
 
                                     if(eloTarget != null) {
                                         player.sendMessage(EloSystem.getInstance().translate(message).replace("%player%", name).replace("%elo%", eloTarget.getElo() + "").replace("%rank%",  EloSystem.getInstance().translate(EloSystem.getEloAPI().getEloRank(eloTarget.getElo()).getName()) + ""));
